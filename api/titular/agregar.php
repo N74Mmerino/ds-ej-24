@@ -14,27 +14,26 @@ $req = json_decode($json);
 
 $resp= new AgregarRespuesta();
 
-$resp->IsOk=false;
+$resp->IsOk=true;
+
 
 if($req->Titular->Direccion== null){
     $resp->IsOk=false;
-     $resp->Mensaje='la dirección es obligatoria';
+    $resp->Mensaje.='la dirección es obligatoria';
 
 }
-if($req->Titular->NroDocumento == null & $req->Titular->ApellidoNombre == null ){
-
+if($req->Titular->NroDocumento == null ){
     $resp->IsOk=false;
-    $resp->Mensaje='el [numero documento|apellidoNombre] es obligatorio.';
+    $resp->Mensaje.='el numero de documento es obligatorio.';
 
 }
-else {
-
-    $resp->Mensaje='False';
-    $resp->Mensaje='la dirección es obligatoria , el [numero documento|apellidoNombre] es obligatorio.';
+if ($req->Titular->ApellidoNombre == null) {
+    $resp->IsOk=false;
+    $resp->Mensaje.='el nombre y apellido es obligatorio';
 }
-
-$resp->IsOk=True;
-$resp->Mensaje= 'Titular agregado correctamente';
+if ($resp->IsOk == true) {
+    $resp->Mensaje='Titular agregado correctamente';
+}
 
 
 
